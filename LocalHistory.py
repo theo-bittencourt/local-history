@@ -5,6 +5,7 @@ import datetime
 import difflib
 import filecmp
 import shutil
+import shlex
 from threading import Thread
 import subprocess
 import sublime
@@ -165,7 +166,7 @@ class HistoryBrowse(sublime_plugin.TextCommand):
         system = platform.system()
 
         if system == 'Darwin':
-            subprocess.call('open %s' % target_dir)
+            subprocess.call('open %s' % shlex.quote(target_dir), shell=True)
         elif system == 'Linux':
             subprocess.call('xdg-open %s' % target_dir, shell=True)
         elif system == 'Windows':
